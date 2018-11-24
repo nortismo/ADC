@@ -21,6 +21,7 @@ class AppointmentDTO:
         if self.description == None:
             self.description = 'no description yet'
 
+
     def toString(self):
         print('---- printing AppointmentDTO ----')
         print('uid: ' + self.uid)

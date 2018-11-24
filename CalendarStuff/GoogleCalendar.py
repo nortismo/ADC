@@ -10,7 +10,7 @@ from oauth2client import file, client, tools
 # If modifying these scopes, delete the file token.json.
 from util.models import AppointmentDTO
 
-SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
+SCOPES = 'https://www.googleapis.com/auth/calendar.events'
 
 def __authenticate():
     store = file.Storage('../Configs/token_prod.json')
@@ -29,6 +29,9 @@ def __fetchCalendarAppointements(calService, startDate : datetime, endDate : dat
                                         orderBy='startTime').execute()
 
     return events_result.get('items', [])
+
+def __insertNewCaledarAppointment(calService, appointment):
+    event = calService.events().insert(calendarId='primary', body=appointment).execute()
 
 
 def __googleAppointmentsToDTO(googleAppointments):
@@ -61,3 +64,21 @@ def get_calendarEntries(date):
         appointmentDTOs = __googleAppointmentsToDTO(googleAppointments)
 
     return appointmentDTOs
+
+def __appointmentDTOTogoogleAppointment(appointmentDTO : AppointmentDTO):
+        json = {
+            "summary": appointmentDTO.description,
+            "start": {
+                'dateTime': appointmentDTO.start.astimezone().isoformat()   # 'Z' indicates UTC time
+            },
+            "end": {
+                'dateTime': appointmentDTO.end.astimezone().isoformat()   # 'Z' indicates UTC time
+            }
+        }
+
+        return json
+
+def createAppointment(appointmentDTO : AppointmentDTO):
+    calService = __authenticate()
+
+    __insertNewCaledarAppointment(calService, __appointmentDTOTogoogleAppointment(appointmentDTO))
