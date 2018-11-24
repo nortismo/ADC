@@ -5,9 +5,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView
 from PyQt5.QtQml import QJSValue
 
-#Just for Diego
-#os.environ['QT_QPA_PLATFORM'] = 'linuxfb:fb=/dev/fb0:size=800x600:mmSize=800x600:offset=0x0:tty=/dev/tty1'
-
+os.environ['QT_QPA_PLATFORM'] = 'eglfs'
 
 #This class is not really used yet. Later for data binding
 class iceController(QObject):

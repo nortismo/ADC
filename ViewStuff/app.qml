@@ -50,23 +50,10 @@
 
 
 import QtQuick 2.0
-import "content" as Content
+
 
 Rectangle {
     id: root
-    width: 640; height: 320
-    color: "#646464"
-
-    Window {
-    visible: true
-    width: 640
-    height: 480
-    title: qsTr("Fancy Terminator")
-
-    Row {
-        id: row
-        width: 200
-        height: 400
-    }
-}
+    width: 800; height: 600
+    color: "#8C8A91"
 }
