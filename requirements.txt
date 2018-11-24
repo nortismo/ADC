@@ -2,3 +2,5 @@ google-api-python-client
 oauth2client
 pyRFC3339
 Qt5.py
+google-cloud-vision
+

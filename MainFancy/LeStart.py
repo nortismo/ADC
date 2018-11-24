@@ -1,10 +1,15 @@
 import datetime
 
 from CalendarStuff import Calendar
+from TextStuff.googleCloudVision import detectTextInImage
 from util.models import AppointmentDTO
 
 
 def main():
+
+    #result = detectTextInImage("../TestData/kaffee.png")
+    #print(result)
+
     calendar = Calendar()
 
     start = datetime.datetime.now() #astimezone = to utc
