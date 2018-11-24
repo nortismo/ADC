@@ -1,5 +1,6 @@
 import time
 
+from CalendarStuff import GoogleCalendar
 from util.models import CalendarDTO, AppointmentDTO
 from datetime import datetime
 
@@ -8,11 +9,12 @@ class Calendar:
     def __init__(self):
         self.calendarDTO = CalendarDTO('calendarNameFromConstructor', self.createAppointments())
 
-    def get_calendarEntries(self, date):
-        pass
+    def get_calendarEntries(self, date=None):
+        if date:
+            return self.get_calendarEntries(date)
+        else:
+            return GoogleCalendar.get_calendarEntries(datetime.utcnow())
 
-    def get_calendarEntries(self):
-        return self.calendarDTO
 
     def createAppointments(self):
         datetime

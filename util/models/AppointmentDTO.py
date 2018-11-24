@@ -6,7 +6,9 @@ class AppointmentDTO:
 
     def __init__(self, uid : string = None, start : datetime = None, end : datetime = None, description : string = None):
         now = str(datetime.now())
-        if uid == None:
+        if uid:
+            self.uid = uid
+        else:
             self.uid = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
         self.start = start
         self.end = end

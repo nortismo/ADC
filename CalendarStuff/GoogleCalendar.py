@@ -12,7 +12,7 @@ from util.models import AppointmentDTO
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 
-def authenticate():
+def __authenticate():
     store = file.Storage('../Configs/token_prod.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -20,7 +20,7 @@ def authenticate():
         creds = tools.run_flow(flow, store)
     return build('calendar', 'v3', http=creds.authorize(Http()))
 
-def fetchCalendarAppointements(calService, startDate : datetime, endDate : datetime):
+def __fetchCalendarAppointements(calService, startDate : datetime, endDate : datetime):
     start = startDate.isoformat() + 'Z'  # 'Z' indicates UTC time
     end = endDate.isoformat() + 'Z'  # 'Z' indicates UTC time
     print('Getting the upcoming 10 events')
@@ -31,7 +31,7 @@ def fetchCalendarAppointements(calService, startDate : datetime, endDate : datet
     return events_result.get('items', [])
 
 
-def googleAppointmentsToDTO(googleAppointments):
+def __googleAppointmentsToDTO(googleAppointments):
     appointmentDTO = []
     for appointment in googleAppointments:
         if appointment['start'].get('dateTime'):
@@ -40,25 +40,24 @@ def googleAppointmentsToDTO(googleAppointments):
             start = datetime.datetime.strptime(appointment['start'].get('date'), "%Y-%m-%d")
 
         if appointment['end'].get('dateTime'):
-            end = parse(appointment['start'].get('dateTime'))
+            end = parse(appointment['end'].get('dateTime'))
         else:
             end = datetime.datetime.strptime(appointment['end'].get('date'), "%Y-%m-%d")
 
-        appointmentDTO.append(AppointmentDTO(appointment['id'],start , end, appointment['summary']))
+        appointmentDTO.append(AppointmentDTO(appointment['id'], start, end, appointment['summary']))
     return appointmentDTO
 
-def main():
-    calService = authenticate()
-    utcNow = datetime.datetime.utcnow()
-    todayStart = datetime.datetime(utcNow.year, utcNow.month, utcNow.day, 0, 0, 0)
-    todayEnd = datetime.datetime(utcNow.year, utcNow.month, utcNow.day, 23, 59, 59)
-    googleAppointments = fetchCalendarAppointements(calService, todayStart, todayEnd)
+
+def get_calendarEntries(date):
+    calService = __authenticate()
+    todayStart = datetime.datetime(date.year, date.month, date.day, 0, 0, 0)
+    todayEnd = datetime.datetime(date.year, date.month, date.day, 23, 59, 59)
+    googleAppointments = __fetchCalendarAppointements(calService, todayStart, todayEnd)
+    appointmentDTOs = None
 
     if not googleAppointments:
         print('No upcoming events found.')
     else:
-        appointmentDTOs = googleAppointmentsToDTO(googleAppointments)
-        print(appointmentDTOs)
+        appointmentDTOs = __googleAppointmentsToDTO(googleAppointments)
 
-if __name__ == '__main__':
-        main()
+    return appointmentDTOs

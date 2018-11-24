@@ -5,11 +5,11 @@ from util.models import AppointmentDTO
 def main():
 
     calendar = Calendar()
-    calendarDTO = calendar.get_calendarEntries()
-    calendarDTO.toString()
+    calendarEntries = calendar.get_calendarEntries()
 
-    # appDTO = AppointmentDTO()
-    # appDTO.toString()
+    for appointment in calendarEntries:
+        print(appointment.toString())
+
 
 
 if __name__ == '__main__':
