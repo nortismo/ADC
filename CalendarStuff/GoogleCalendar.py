@@ -7,31 +7,34 @@ from oauth2client import file, client, tools
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 
-def main():
-    """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
+def authenticate():
     store = file.Storage('../Configs/token_prod.json')
     creds = store.get()
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('../Configs/credentials_prod.json', SCOPES)
         creds = tools.run_flow(flow, store)
-    service = build('calendar', 'v3', http=creds.authorize(Http()))
+    return build('calendar', 'v3', http=creds.authorize(Http()))
 
-    # Call the Calendar API
-    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+def fetchCalendar(calService, startDate : datetime, endDate : datetime):
+    start = startDate.isoformat() + 'Z'  # 'Z' indicates UTC time
+    end = endDate.isoformat() + 'Z'  # 'Z' indicates UTC time
     print('Getting the upcoming 10 events')
-    events_result = service.events().list(calendarId='primary', timeMin=now,
-                                        maxResults=10, singleEvents=True,
+    events_result = calService.events().list(calendarId='primary', timeMin=start, timeMax=end,
+                                        maxResults=100, singleEvents=True,
                                         orderBy='startTime').execute()
-    events = events_result.get('items', [])
+    return events_result.get('items', [])
 
-    if not events:
+def main():
+    calService = authenticate()
+    utcNow = datetime.datetime.utcnow()
+    todayStart = datetime.datetime(utcNow.year, utcNow.month, utcNow.day, 0, 0, 0)
+    todayEnd = datetime.datetime(utcNow.year, utcNow.month, utcNow.day, 23, 59, 59)
+    appointments = fetchCalendar(calService, todayStart, todayEnd)
+
+
+    if not appointments:
         print('No upcoming events found.')
-    for event in events:
+    for event in appointments:
         start = event['start'].get('dateTime', event['start'].get('date'))
         print(start, event['summary'])
 
