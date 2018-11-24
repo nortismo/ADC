@@ -4,9 +4,10 @@ from datetime import datetime
 
 class AppointmentDTO:
 
-    def __init__(self, start = None, end = None, description = None):
+    def __init__(self, uid : string = None, start : datetime = None, end : datetime = None, description : string = None):
         now = str(datetime.now())
-        self.uid = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
+        if uid == None:
+            self.uid = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
         self.start = start
         self.end = end
         self.description = description
