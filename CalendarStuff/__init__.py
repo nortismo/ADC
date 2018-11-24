@@ -1,3 +1,3 @@
-from .CalendarImpl import CalendarImpl
+from .Calendar import Calendar
 
-__all__ = ['CalendarImpl']
+__all__ = ['Calendar']

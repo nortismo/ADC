@@ -1,7 +1,7 @@
 from util.models import CalendarDTO
 
 
-class CalendarImpl:
+class Calendar:
     def __init__(self):
         self.calendarDTO = CalendarDTO
 

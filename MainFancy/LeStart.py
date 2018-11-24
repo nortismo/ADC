@@ -1,8 +1,8 @@
-from CalendarStuff import CalendarImpl
+from CalendarStuff import Calendar
 
 def main():
 
-    calendar = CalendarImpl()
+    calendar = Calendar()
     calendarDTO = calendar.get_calendarEntries()
     print('calendar name: ' + calendarDTO.calendarName + ', calendarUID: ' + calendarDTO.uid)
 
