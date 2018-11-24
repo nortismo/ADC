@@ -6,10 +6,10 @@ def main():
 
     calendar = Calendar()
     calendarDTO = calendar.get_calendarEntries()
-    print('calendar name: ' + calendarDTO.calendarName + ', calendarUID: ' + calendarDTO.uid)
+    calendarDTO.toString()
 
-    appDTOTest = AppointmentDTO()
-    print('appointment - start: ' + appDTOTest.start + ' end: ' + appDTOTest.end + ' description: ' + appDTOTest.description)
+    # appDTO = AppointmentDTO()
+    # appDTO.toString()
 
 
 if __name__ == '__main__':
