@@ -12,7 +12,8 @@ class VncEDS:
 
     def update(self):
         self.__client.refreshScreen()
-        image = self.__client.screen.crop((0, 0, epd7in5.EPD_WIDTH, epd7in5.EPD_HEIGHT))
+        image = self.__client.screen.crop((0, 0, epd7in5.EPD_HEIGHT, epd7in5.EPD_WIDTH))
+        image = image.rotate(90, expand=True)
 
         if self.__last_img:
             if self.__last_img == image:
