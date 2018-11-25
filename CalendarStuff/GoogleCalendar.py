@@ -28,7 +28,12 @@ class GoogleCalendar:
         googleCalendar = self.__fetchCalendarAppointements(todayStart, todayEnd)
 
         calendarDTO = CalendarDTO()
-        calendarDTO.calendarName = googleCalendar['description']
+
+        if googleCalendar['description']:
+            calendarDTO.calendarName = googleCalendar['description']
+        else:
+            calendarDTO.calendarName = googleCalendar['summary']
+            print("please add a description to your calendar")
 
         appointmentDTOs = None
         googleAppointments = googleCalendar.get('items', [])
