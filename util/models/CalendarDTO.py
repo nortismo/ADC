@@ -7,7 +7,7 @@ from util.models import AppointmentDTO
 
 class CalendarDTO:
     calendarName = None
-    appointments = ["AppointmentDTO1"]
+    appointments = None
 
     def __init__(self, calendarName=None, appointments=None):
         now = str(datetime.now())

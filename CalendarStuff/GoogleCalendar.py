@@ -51,7 +51,7 @@ class GoogleCalendar:
     def __fetchCalendarAppointements(self, startDate: datetime, endDate: datetime):
         start = startDate.isoformat() + 'Z'  # 'Z' indicates UTC time
         end = endDate.isoformat() + 'Z'  # 'Z' indicates UTC time
-        print('Getting the upcoming 10 events')
+
         events_result = self.googleCalendarAPI.events().list(calendarId='primary', timeMin=start, timeMax=end,
                                                              maxResults=100, singleEvents=True,
                                                              orderBy='startTime').execute()
