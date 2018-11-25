@@ -4,6 +4,9 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QUrl, QObject
 from TextStuff.GoogleCloudVision import GoogleCloudVision
 import base64
+from util.models import AppointmentDTO
+from CalendarStuff import Calendar
+import datetime
 
 from ViewStuff.binding_experiments.controller import MyPersonalViewController
 
@@ -23,10 +26,13 @@ class TextInput:
         self.vision = GoogleCloudVision()
 
     def finished(self):
+        cal = Calendar()
         canvas = self.win.findChild(QObject, 'textCanvas')
         image = canvas.toDataURL().replace('data:image/png;base64,', '')
         imagedata = base64.b64decode(image)
-        print(self.vision.detectTextInBase64Image(imagedata))
+        hstr = self.vision.detectTextInBase64Image(imagedata)
+        appointment = AppointmentDTO.create_from_hstr(hstr, datetime.datetime.now())
+        cal.createAppointmentFromDTO('michi', appointment)
 
 
 def main():
