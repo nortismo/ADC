@@ -14,3 +14,7 @@ class Calendar:
     def createAppointment(self, userName, start: datetime, end: datetime, description):
         googleCalendar = GoogleCalendar(userName)
         googleCalendar.createAppointment(AppointmentDTO(None, start, end, description))
+
+    def createAppointmentFromDTO(self, userName, appointmentDTO: AppointmentDTO):
+        googleCalendar = GoogleCalendar(userName)
+        googleCalendar.createAppointment(appointmentDTO)
