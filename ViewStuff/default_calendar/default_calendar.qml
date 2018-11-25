@@ -36,7 +36,7 @@ ApplicationWindow {
                 anchors.top: date_title.top
                 anchors.right: title_rectangle.right
                 anchors.rightMargin: 20
-                transformOrigin: Item.Top
+                height: 25
             }
         }
 

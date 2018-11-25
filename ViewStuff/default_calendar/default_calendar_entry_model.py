@@ -33,7 +33,7 @@ class DefaultCalendarEntryModel:
                 time_appendix = "(" + str(start.hour) + ":" + str(start.minute) + " - " + str(end.hour) + ":" + str(end.minute) + ")"  # TODO: Maybe we are able to simplify that
 
         if self.description is None:
-            self.description = '-'
+            self.description = ''
 
         self._fullText = time_appendix + self.description
         return self._fullText

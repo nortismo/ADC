@@ -17,7 +17,7 @@ class DefaultCalendarController(QMainWindow):
         self.calendar_data = list()
 
     def add_event(self):
-        controller = TextInputController('michi', self)
+        controller = TextInputController('philipp', self)
 
     def start_default_calendar(self):
         self.prepare_calendar()
