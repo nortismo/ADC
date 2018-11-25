@@ -29,7 +29,7 @@ class GoogleCalendar:
 
         calendarDTO = CalendarDTO()
 
-        if googleCalendar['description']:
+        if googleCalendar.get('description'):
             calendarDTO.calendarName = googleCalendar['description']
         else:
             calendarDTO.calendarName = googleCalendar['summary']

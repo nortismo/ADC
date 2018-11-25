@@ -1,3 +1,5 @@
 from .AppointmentDTO import AppointmentDTO
 from .CalendarDTO import CalendarDTO
-__all__ = ['AppointmentDTO', 'CalendarDTO']
+from .ConfigDTO import ConfigDTO
+
+__all__ = ['AppointmentDTO', 'CalendarDTO', 'ConfigDTO']
