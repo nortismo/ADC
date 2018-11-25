@@ -12,32 +12,39 @@ ApplicationWindow {
     ListView {
         clip: true
 
-        model: pyModel  //TODO: CHANGE!
+        model: calendarData  //TODO: CHANGE!
         anchors.fill: parent
 
         width: parent.width
         //TODO: Change layout
-        height: 40
+        height: 10
+        Row {
+            Column {
+                // TODO: Fix position/layout of button
+                Button {
+                    id: createEvent
+                    objectName: "createEvent"
+                    text: "Create Event"
+                }
+            }
+        }
         delegate: Row {
             Column {
                 Text{
-                    width: 40
-                    height: 40
-                    text: index
+                    width: 44
+                    text: hour
                 }
             }
             Column {
                 Text{
-                    width: 40
-                    height: 40
-                    text: dog
+                    width: 170
+                    text: firstPerson
                 }
             }
             Column {
                 Text{
-                    width: 40
-                    height: 40
-                    text: thirdValue
+                    width: 170
+                    text: secondPerson
                 }
             }
             spacing: 10
