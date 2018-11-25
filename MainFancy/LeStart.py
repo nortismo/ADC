@@ -12,8 +12,8 @@ def main():
     calendar = Calendar()
 
     start = datetime.datetime.now()
-    end = datetime.datetime.now() + datetime.timedelta(hours=1)
-    calendar.createAppointment("philipp", start, end, 'Get Coffee because of sleepy')
+    #end = datetime.datetime.now() + datetime.timedelta(hours=1)
+    #calendar.createAppointment("philipp", start, end, 'Get Coffee because of sleepy')
 
     calendar = calendar.get_calendarEntries("philipp")
     for appointment in calendar.appointments:
