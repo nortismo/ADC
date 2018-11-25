@@ -23,6 +23,10 @@ def main():
     for appointment in calendar.appointments:
         print(appointment.toString())
 
+        calendar = calendar.get_calendarEntries("carla")
+        for appointment in calendar.appointments:
+            print(appointment.toString())
+
 
 if __name__ == '__main__':
     main()

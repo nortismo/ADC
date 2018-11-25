@@ -18,6 +18,7 @@ class DefaultCalendarEntryModel:
         self.reset_data()
         self.set_data(uid, start, end, description)
 
+
     def set_data(self, uid: string = None, start: datetime = None, end: datetime = None, description: string = None):
         self.uid = uid
         self.start = start
@@ -26,14 +27,16 @@ class DefaultCalendarEntryModel:
 
         time_appendix = ""
 
+
         if uid is not None:
-            if start >= self.start_position & start <= self.end_position:
-                time_appendix = "(" + start.hour + ":" + start.minute + " - " + end.hour + ":" + end.minute + ")"  # TODO: Maybe we are able to simplify that
+            if start >= self.start_position and start <= self.end_position:
+                time_appendix = "(" + str(start.hour) + ":" + str(start.minute) + " - " + str(end.hour) + ":" + str(end.minute) + ")"  # TODO: Maybe we are able to simplify that
 
         if self.description is None:
-            self.description = 'no description yet'
+            self.description = '-'
 
         self._fullText = time_appendix + self.description
+        return self._fullText
 
     def reset_data(self):
         self.uid = None

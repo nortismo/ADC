@@ -46,7 +46,7 @@ class GoogleCalendar:
 
 
     def __authenticate(self, userName):
-        store = file.Storage('Configs/token_' + userName + '_prod.json')
+        store = file.Storage('../../Configs/token_' + userName + '_prod.json')
         creds = store.get()
         if not creds or creds.invalid:
             flow = client.flow_from_clientsecrets('Configs/credentials_calapi_prod.json', self.SCOPES)
