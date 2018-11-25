@@ -86,7 +86,6 @@ ApplicationWindow {
             anchors.bottom: parent.bottom
             anchors.topMargin: 10
             width: parent.width
-            height: 10
             delegate: Row {
                         height: 21
                         Column {
@@ -104,12 +103,14 @@ ApplicationWindow {
                             Text {
                                 width: 167
                                 text: firstPerson
+                                wrapMode: Text.WordWrap
                             }
                         }
                         Column {
                             Text {
                                 width: 167
                                 text: secondPerson
+                                wrapMode: Text.WordWrap
                             }
                         }
             }
