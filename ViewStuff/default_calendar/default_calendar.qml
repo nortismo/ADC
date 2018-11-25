@@ -18,6 +18,16 @@ ApplicationWindow {
         width: parent.width
         //TODO: Change layout
         height: 10
+        Row {
+            Column {
+                // TODO: Fix position/layout of button
+                Button {
+                    id: createEvent
+                    objectName: "createEvent"
+                    text: "Create Event"
+                }
+            }
+        }
         delegate: Row {
             Column {
                 Text{
