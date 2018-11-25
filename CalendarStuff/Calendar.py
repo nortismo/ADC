@@ -4,13 +4,13 @@ from datetime import datetime
 
 
 class Calendar:
-    def get_calendarEntries(self, date=None):
+    def get_calendarEntries(self, userName, date=None):
         if date:
-            return self.get_calendarEntries(date)
+            googleCalendar = GoogleCalendar(userName)
+            return googleCalendar.get_calendarEntries(date)
         else:
-            googleCalendar = GoogleCalendar()
-            return googleCalendar.get_calendarEntries(datetime.utcnow())
+            return self.get_calendarEntries(userName, datetime.utcnow())
 
-    def createAppointment(self, start: datetime, end: datetime, description):
-        googleCalendar = GoogleCalendar()
+    def createAppointment(self, userName, start: datetime, end: datetime, description):
+        googleCalendar = GoogleCalendar(userName)
         googleCalendar.createAppointment(AppointmentDTO(None, start, end, description))

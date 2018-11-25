@@ -6,7 +6,7 @@ from util.models import AppointmentDTO
 
 
 class CalendarDTO:
-    calendarName = "filip"
+    calendarName = None
     appointments = ["AppointmentDTO1"]
 
     def __init__(self, calendarName=None, appointments=None):

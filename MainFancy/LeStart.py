@@ -5,18 +5,18 @@ from TextStuff.GoogleCloudVision import GoogleCloudVision
 
 
 def main():
-    googleCloudVision = GoogleCloudVision()
-    result = googleCloudVision.detectTextInImage("../TestData/kaffee.png")
-    print(result)
+    #googleCloudVision = GoogleCloudVision()
+    #result = googleCloudVision.detectTextInImage("../TestData/kaffee.png")
+    #print(result)
 
     calendar = Calendar()
 
     start = datetime.datetime.now()
     end = datetime.datetime.now() + datetime.timedelta(hours=1)
-    calendar.createAppointment(start, end, 'Get Coffee because of sleepy')
+    calendar.createAppointment("philipp", start, end, 'Get Coffee because of sleepy')
 
-    calendarEntries = calendar.get_calendarEntries()
-    for appointment in calendarEntries:
+    calendar = calendar.get_calendarEntries("philipp")
+    for appointment in calendar.appointments:
         print(appointment.toString())
 
 
