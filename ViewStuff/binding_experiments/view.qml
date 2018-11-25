@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.0
 import QtQuick.Controls 2.3
 
 ApplicationWindow {
@@ -46,6 +46,43 @@ ApplicationWindow {
             anchors.topMargin: 10
             font.bold: true
             anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+
+        ListView {
+            clip: true
+
+            model: pyModel
+
+            anchors.top: textResult.bottom
+            anchors.bottom: parent.bottom
+
+            width: parent.width
+            height: 40
+            delegate: Row {
+                Column {
+                    Text{
+                        width: 40
+                        height: 40
+                        text: index
+                    }
+                }
+                Column {
+                    Text{
+                        width: 40
+                        height: 40
+                        text: dog
+                    }
+                }
+                Column {
+                    Text{
+                        width: 40
+                        height: 40
+                        text: thirdValue
+                    }
+                }
+                spacing: 10
+            }
         }
     }
 
