@@ -1,27 +1,33 @@
 import datetime
 import sys
 from PyQt5.QtCore import QObject, QUrl, QByteArray
-from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtWidgets import QMainWindow, QApplication
+from ViewStuff.text_input.text_input_controller import TextInputController
 from ViewStuff.default_calendar.default_calendar_abstract_model import DefaultCalendarAbstractModel
 from ViewStuff.default_calendar.default_calendar_entry_model import DefaultCalendarEntryModel
 
 
-class DefaultCalendarController(QObject):
+class DefaultCalendarController(QMainWindow):
     def __init__(self, date: datetime = datetime.datetime.now()):
-        QObject.__init__(self)
+        super().__init__()
         self.date = date
         self.calendar_data = list()
 
+    def add_event(self):
+        controller = TextInputController('michi', self)
+
     def start_default_calendar(self):
         self.prepare_calendar()
-        app = QGuiApplication(sys.argv)
         engine = QQmlApplicationEngine()
-        engine.rootContext().setContextProperty("controller", self)
-        engine.rootContext().setContextProperty("calendarData", self.calendar_data)
-        engine.load(QUrl('default_calendar.qml'))
-        engine.quit.connect(app.quit)
-        sys.exit(app.exec_())
+        ctx = engine.rootContext()
+        ctx.setContextProperty("controller", self)
+        ctx.setContextProperty("calendarData", self.calendar_data)
+        engine.load(QUrl('ViewStuff/default_calendar/default_calendar.qml'))
+        win = engine.rootObjects()[0]
+        btn = win.findChild(QObject, 'createEvent')
+        btn.clicked.connect(self.add_event)  # works too
+        return engine
 
     def prepare_calendar(self):
         schema = [
@@ -50,4 +56,8 @@ class DefaultCalendarController(QObject):
 
 # This main is just for development. The main process should be started somewhere else, out of the GUI
 if __name__ == "__main__":
-    DefaultCalendarController().start_default_calendar()
+    app = QApplication(sys.argv)
+    controller = DefaultCalendarController()
+    engine = controller.start_default_calendar()
+    engine.quit.connect(app.quit)
+    sys.exit(app.exec_())

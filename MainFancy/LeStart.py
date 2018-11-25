@@ -7,7 +7,7 @@ from util import ConfigManager
 
 def main():
     confmanager = ConfigManager()
-    configuration = confmanager.loadConfig('../Configs/config.json')
+    configuration = confmanager.loadConfig('Configs/config.json')
 
     #googleCloudVision = GoogleCloudVision()
     #result = googleCloudVision.detectTextInImage("../TestData/kaffee.png")

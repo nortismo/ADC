@@ -6,7 +6,7 @@ from oauth2client.client import GoogleCredentials
 
 DISCOVERY_URL = 'https://{api}.googleapis.com/$discovery/rest?version={apiVersion}'  # noqa
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '../Configs/gcloud_prod.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'Configs/gcloud_prod.json'
 
 
 class GoogleCloudVision:

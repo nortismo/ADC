@@ -1,5 +1,6 @@
 import sys
-from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtGui import QGuiApplication, QWindow
+from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QUrl, QObject
 from TextStuff.GoogleCloudVision import GoogleCloudVision
@@ -14,12 +15,14 @@ from ViewStuff.binding_experiments.controller import MyPersonalViewController
 # Start of the application itself
 
 
-class TextInput:
-    def __init__(self):
+class TextInputController(QMainWindow):
+    def __init__(self, user, parent=None):
+        super(TextInputController, self).__init__(parent)
+        self.user = user
         self.engine = QQmlApplicationEngine()
         ctx = self.engine.rootContext()
         ctx.setContextProperty('main', self.engine)
-        self.engine.load(QUrl('text-input.qml'))
+        self.engine.load(QUrl('ViewStuff/text_input/text-input.qml'))
         self.win = self.engine.rootObjects()[0]
         btn = self.win.findChild(QObject, 'finishButton')
         btn.clicked.connect(self.finished)  # works too
@@ -32,13 +35,13 @@ class TextInput:
         imagedata = base64.b64decode(image)
         hstr = self.vision.detectTextInBase64Image(imagedata)
         appointment = AppointmentDTO.create_from_hstr(hstr, datetime.datetime.now())
-        cal.createAppointmentFromDTO('michi', appointment)
+        cal.createAppointmentFromDTO(self.user, appointment)
 
 
 def main():
     app = QGuiApplication(sys.argv)
 
-    txtInput = TextInput()
+    txtInput = TextInputController('michi')
 
     txtInput.engine.quit.connect(app.quit)
     sys.exit(app.exec_())
