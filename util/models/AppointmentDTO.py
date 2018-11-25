@@ -2,9 +2,10 @@ import random
 import string
 from datetime import datetime
 
+
 class AppointmentDTO:
 
-    def __init__(self, uid : string = None, start : datetime = None, end : datetime = None, description : string = None):
+    def __init__(self, uid: string = None, start: datetime = None, end: datetime = None, description: string = None):
         now = str(datetime.now())
         if uid:
             self.uid = uid
@@ -20,7 +21,6 @@ class AppointmentDTO:
 
         if self.description == None:
             self.description = 'no description yet'
-
 
     def toString(self):
         print('---- printing AppointmentDTO ----')

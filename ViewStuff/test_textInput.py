@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QUrl, QObject
-from TextStuff.googleCloudVision import VisionApi
+from TextStuff.GoogleCloudVision import VisionApi
 import base64
 
 from ViewStuff.binding_experiments.controller import MyPersonalViewController
