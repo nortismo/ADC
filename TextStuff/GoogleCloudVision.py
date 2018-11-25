@@ -18,14 +18,11 @@ class GoogleCloudVision:
             'vision', 'v1', credentials=self.credentials,
             discoveryServiceUrl=DISCOVERY_URL)
 
-    def __detect_handwritten_ocr(self, path):
+    def __detect_handwritten_ocr(self, data):
         from google.cloud import vision_v1p3beta1 as vision
         client = vision.ImageAnnotatorClient()
 
-        with io.open(path, 'rb') as image_file:
-            content = image_file.read()
-
-        image = vision.types.Image(content=content)
+        image = vision.types.Image(content=data)
 
         image_context = vision.types.ImageContext(
             language_hints=['de-t-i0-handwrit'])
@@ -35,5 +32,10 @@ class GoogleCloudVision:
 
         return response.full_text_annotation.text
 
-    def detectTextInImage(self, path):
-        return self.__detect_handwritten_ocr(path)
+    def detectTextInImageFile(self, path):
+        with io.open(path, 'rb') as image_file:
+            content = image_file.read()
+        return self.__detect_handwritten_ocr(content)
+
+    def detectTextInBase64Image(self, data):
+        return self.__detect_handwritten_ocr(data)

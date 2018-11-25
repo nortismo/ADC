@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QUrl, QObject
-from TextStuff.GoogleCloudVision import VisionApi
+from TextStuff.GoogleCloudVision import GoogleCloudVision
 import base64
 
 from ViewStuff.binding_experiments.controller import MyPersonalViewController
@@ -20,13 +20,13 @@ class TextInput:
         self.win = self.engine.rootObjects()[0]
         btn = self.win.findChild(QObject, 'finishButton')
         btn.clicked.connect(self.finished)  # works too
-        self.vision = VisionApi()
+        self.vision = GoogleCloudVision()
 
     def finished(self):
         canvas = self.win.findChild(QObject, 'textCanvas')
         image = canvas.toDataURL().replace('data:image/png;base64,', '')
         imagedata = base64.b64decode(image)
-        # Todo: Analyse Text (PHILIPP!)
+        print(self.vision.detectTextInBase64Image(imagedata))
 
 
 def main():
